@@ -30,10 +30,11 @@ public class PrincipalDetails implements UserDetails{
 			
 			@Override
 			public String getAuthority() {
+				System.out.println(user.getRole()+"==========");
 				return user.getRole();
 			}
 		});
-		return null;
+		return collect;
 	}
 
 	@Override
