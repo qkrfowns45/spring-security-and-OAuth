@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,7 @@ public class IndexController {
 	
 	@GetMapping("/user")
 	public @ResponseBody String user() {
+		System.out.println();
 		return "유저 페이지입니다.";
 	}
 
@@ -69,6 +72,18 @@ public class IndexController {
 		headers.setLocation(URI.create("/loginForm"));
 		
 		return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/info")
+	public @ResponseBody String info() {
+		return "개인정보";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')") //함수가 돌기전에 체크 함수 돌기전은 PostAuthorize!
+	@GetMapping("/data")
+	public @ResponseBody String data() {
+		return "데이터정보";
 	}
 
 }
