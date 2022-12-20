@@ -11,3 +11,6 @@
 > EnableMethodSecurity를 사용하여 처리해야 한다! 계속 버전이 바뀌면서 많은 것들이 deprecated되고 계속해서 refactoring하는 연습을 해야겠다
 
 [spring.io에서 공개한 6.0.0 api설명서](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/method/configuration/EnableGlobalMethodSecurity.html).
+
+> Oauth를 이용해 구글에서 프로필 정보를 받아오기 위해 기본설정까지 마쳤다. 구글에서 프로필정보는 생각보다 간단하게 가져와졌다. url을 authorization형식의 주소를 입력하고
+> security에서 oauth2Login을 통해 google client id와 secret을 입력하여 이 정보를 요청해 토큰과 프로필을 같이 발급받았다. 이제는 강제로 회원가입을 진행할 예정이다.
