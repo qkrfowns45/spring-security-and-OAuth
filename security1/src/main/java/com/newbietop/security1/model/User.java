@@ -8,10 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -26,4 +29,18 @@ public class User {
 	private String provideId;
 	@CreationTimestamp
 	private Timestamp createDate;
+	
+	@Builder
+	public User(String username, String password, String email, String role, String provider, String provideId,
+			Timestamp createDate) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		this.provider = provider;
+		this.provideId = provideId;
+		this.createDate = createDate;
+	}
+	
+	
 }
