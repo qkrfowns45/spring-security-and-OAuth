@@ -1,5 +1,7 @@
 package com.newbietop.security1.config.oauth;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.newbietop.security1.config.auth.PrincipalDetails;
 import com.newbietop.security1.config.auth.provider.FacebookUserInfo;
 import com.newbietop.security1.config.auth.provider.GoogleUserInfo;
+import com.newbietop.security1.config.auth.provider.NaverUserInfo;
 import com.newbietop.security1.config.auth.provider.OAuth2UserInfo;
 import com.newbietop.security1.model.User;
 import com.newbietop.security1.repository.UserRepository;
@@ -41,8 +44,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		}else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
 			System.out.println("페이스북 로그인 요청");
 			oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+			System.out.println("네이버 로그인 요청");
+			oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
 		}else {
-			System.out.println("구글 페이스북 아닌 유저십니다.");
+			System.out.println("구글 페이스북 네이버가 아닌 유저십니다.");
 		}
 		
 		String provider = oAuth2UserInfo.getProvider(); //google, facebook
